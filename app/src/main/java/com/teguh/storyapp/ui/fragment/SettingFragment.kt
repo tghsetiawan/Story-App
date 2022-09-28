@@ -44,8 +44,6 @@ class SettingFragment : Fragment() {
                     dialog.cancel()
                     clearPreference(requireContext())
                     startActivity(Intent(requireActivity(), MainActivity::class.java))
-//                    findNavController().navigate(SettingFragmentDirections.actionSettingFragmentToSignInFragment())
-//                    findNavController().navigate(SettingFragmentDirections.actionSettingFragmentToSplashScreenFragment())
                     requireActivity().finish()
                 }
                 .show()

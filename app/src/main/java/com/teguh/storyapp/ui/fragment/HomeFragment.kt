@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.teguh.storyapp.R
 import com.teguh.storyapp.data.local.entity.StoryEntity
@@ -64,7 +65,8 @@ class HomeFragment : Fragment()  {
         token = getPreference(requireContext(), Constant.USER_TOKEN)
 
         binding?.reyclerView?.setHasFixedSize(true)
-        binding?.reyclerView?.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+//        binding?.reyclerView?.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+        binding?.reyclerView?.layoutManager = LinearLayoutManager(requireContext())
 
         val factoryStory: StoryViewModelFactory = StoryViewModelFactory.getInstance(requireActivity())
         storyViewModel = ViewModelProvider(this, factoryStory)[StoryViewModel::class.java]

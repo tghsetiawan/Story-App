@@ -32,7 +32,7 @@
                 <com.makeramen.roundedimageview.RoundedImageView
                     android:id="@+id/riv_img_story"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="@dimen/_150sdp"
                     android:adjustViewBounds="true"
                     android:visibility="visible"
                     android:transitionName="storyImg"

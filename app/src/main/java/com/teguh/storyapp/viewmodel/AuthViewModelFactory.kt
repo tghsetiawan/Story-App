@@ -21,7 +21,7 @@ class AuthViewModelFactory private constructor(private val userAuthRepository: U
         private var instance: AuthViewModelFactory? = null
         fun getInstance(context: Context): AuthViewModelFactory =
             instance ?: synchronized(this) {
-                instance ?: AuthViewModelFactory(AuthInjection.provideRepository(context))
+                instance ?: AuthViewModelFactory(AuthInjection.provideRepository())
             }.also { instance = it }
     }
 }

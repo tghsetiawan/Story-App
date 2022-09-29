@@ -11,6 +11,7 @@
         <entry key="..\:/2_Teguh/Belajar/Kotlin/StoryApp/app/src/main/res/drawable-v24/rounded_dialog.xml" value="0.306" />
         <entry key="..\:/2_Teguh/Belajar/Kotlin/StoryApp/app/src/main/res/drawable/bg_button_disabled.xml" value="0.306" />
         <entry key="..\:/2_Teguh/Belajar/Kotlin/StoryApp/app/src/main/res/drawable/bg_button_enabled.xml" value="0.306" />
+        <entry key="..\:/2_Teguh/Belajar/Kotlin/StoryApp/app/src/main/res/drawable/bottom_sheet_shape.xml" value="0.306" />
         <entry key="..\:/2_Teguh/Belajar/Kotlin/StoryApp/app/src/main/res/drawable/ic_camera.xml" value="0.306" />
         <entry key="..\:/2_Teguh/Belajar/Kotlin/StoryApp/app/src/main/res/drawable/ic_close.xml" value="0.274" />
         <entry key="..\:/2_Teguh/Belajar/Kotlin/StoryApp/app/src/main/res/layout/activity_main.xml" value="0.35989583333333336" />
@@ -24,7 +25,7 @@
         <entry key="..\:/2_Teguh/Belajar/Kotlin/StoryApp/app/src/main/res/layout/fragment_sign_up.xml" value="0.35989583333333336" />
         <entry key="..\:/2_Teguh/Belajar/Kotlin/StoryApp/app/src/main/res/layout/fragment_splash_screen.xml" value="0.35989583333333336" />
         <entry key="..\:/2_Teguh/Belajar/Kotlin/StoryApp/app/src/main/res/layout/fragment_story.xml" value="0.35989583333333336" />
-        <entry key="..\:/2_Teguh/Belajar/Kotlin/StoryApp/app/src/main/res/layout/fragment_story_bottom_sheet.xml" value="0.35989583333333336" />
+        <entry key="..\:/2_Teguh/Belajar/Kotlin/StoryApp/app/src/main/res/layout/fragment_story_bottom_sheet.xml" value="0.25" />
         <entry key="..\:/2_Teguh/Belajar/Kotlin/StoryApp/app/src/main/res/layout/fragment_story_detail.xml" value="0.35989583333333336" />
         <entry key="..\:/2_Teguh/Belajar/Kotlin/StoryApp/app/src/main/res/layout/item_loading.xml" value="0.35989583333333336" />
         <entry key="..\:/2_Teguh/Belajar/Kotlin/StoryApp/app/src/main/res/layout/item_rv_story.xml" value="0.35989583333333336" />

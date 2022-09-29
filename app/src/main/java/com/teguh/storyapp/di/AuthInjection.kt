@@ -5,7 +5,7 @@ import com.teguh.storyapp.data.remote.retrofit.ApiConfig
 import com.teguh.storyapp.data.repository.UserAuthRepository
 
 object AuthInjection {
-    fun provideRepository(context: Context): UserAuthRepository {
+    fun provideRepository(): UserAuthRepository {
         val apiService = ApiConfig.getApiService()
         return UserAuthRepository.getInstance(apiService)
     }

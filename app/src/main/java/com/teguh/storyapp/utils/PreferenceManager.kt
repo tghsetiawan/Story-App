@@ -19,19 +19,6 @@ class PreferenceManager(context: Context) {
         return sharedPreferences.getString(key, "").toString()
     }
 
-    fun putListString(key: String, value: List<String>) {
-        val set: MutableSet<String> = HashSet()
-        set.addAll(value)
-
-        val editor = sharedPreferences.edit()
-        editor.putStringSet(key, set)
-        editor.apply()
-    }
-
-    fun getListString(key: String): MutableSet<String>? {
-        return sharedPreferences.getStringSet(key, null)
-    }
-
     fun clearPreferences() {
         val editor = sharedPreferences.edit()
         editor.clear()

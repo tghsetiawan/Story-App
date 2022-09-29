@@ -1,10 +1,7 @@
 package com.teguh.storyapp
 
-import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.AttributeSet
-import android.view.View
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
 import com.teguh.storyapp.databinding.ActivityMainBinding

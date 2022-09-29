@@ -65,7 +65,8 @@ class HomeFragment : Fragment()  {
         token = getPreference(requireContext(), Constant.USER_TOKEN)
 
         binding?.reyclerView?.setHasFixedSize(true)
-        binding?.reyclerView?.layoutManager = LinearLayoutManager(requireContext())
+//        binding?.reyclerView?.layoutManager = LinearLayoutManager(requireContext())
+        binding?.reyclerView?.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
 
         val factoryStory: StoryViewModelFactory = StoryViewModelFactory.getInstance(requireActivity())
         storyViewModel = ViewModelProvider(this, factoryStory)[StoryViewModel::class.java]

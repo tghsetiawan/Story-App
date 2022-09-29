@@ -6,10 +6,25 @@ import androidx.databinding.BindingAdapter
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.makeramen.roundedimageview.RoundedImageView
 import com.teguh.storyapp.R
 
 @BindingAdapter("android:loadImage")
 fun ImageView.loadImage(url: Any?) {
+    try {
+        val options = RequestOptions()
+            .placeholder(getProgressDrawable(context))
+            .error(R.drawable.ic_broken_image)
+        Glide.with(context)
+            .setDefaultRequestOptions(options)
+            .load(url)
+            .into(this)
+    } catch (e: Exception) {
+        e.toString()
+    }
+}
+
+fun RoundedImageView.loadImage(url: Any?) {
     try {
         val options = RequestOptions()
             .placeholder(getProgressDrawable(context))

@@ -21,36 +21,32 @@
             android:layout_height="wrap_content"
             app:cardCornerRadius="@dimen/_10sdp"
             app:cardElevation="@dimen/_1sdp"
-            app:cardBackgroundColor="@color/colorText_2"
-            android:padding="@dimen/_1sdp">
+            app:cardBackgroundColor="@color/colorText_2">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-<!--                <com.makeramen.roundedimageview.RoundedImageView-->
-<!--                    android:id="@+id/riv_img_story"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="@dimen/_150sdp"-->
-<!--                    android:adjustViewBounds="true"-->
-<!--                    android:visibility="visible"-->
-<!--                    android:transitionName="storyImg"-->
-<!--                    android:loadImage="@{viewmodel.photoUrl}"-->
-<!--                    android:padding="@dimen/_3sdp"-->
-<!--                    app:riv_corner_radius_top_left="@dimen/_10sdp"-->
-<!--                    app:riv_corner_radius_top_right="@dimen/_10sdp"-->
-<!--                    app:riv_corner_radius_bottom_left="@dimen/_10sdp"-->
-<!--                    app:riv_corner_radius_bottom_right="@dimen/_10sdp"/>-->
-
-                <ImageView
+                <com.makeramen.roundedimageview.RoundedImageView
                     android:id="@+id/riv_img_story"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/_200sdp"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:visibility="visible"
                     android:transitionName="storyImg"
-                    android:contentDescription="@string/story_image"
                     android:loadImage="@{viewmodel.photoUrl}"
-                    tools:srcCompat="@tools:sample/avatars"/>
+                    app:riv_corner_radius_top_left="@dimen/_10sdp"
+                    app:riv_corner_radius_top_right="@dimen/_10sdp"/>
+
+<!--                <ImageView-->
+<!--                    android:id="@+id/riv_img_story"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="@dimen/_200sdp"-->
+<!--                    android:transitionName="storyImg"-->
+<!--                    android:contentDescription="@string/story_image"-->
+<!--                    android:loadImage="@{viewmodel.photoUrl}"-->
+<!--                    tools:srcCompat="@tools:sample/avatars"/>-->
 
                 <TextView
                     android:id="@+id/tv_title_name"
@@ -62,7 +58,7 @@
                     android:transitionName="storyName"
                     android:textSize="@dimen/_15ssp"
                     android:paddingHorizontal="@dimen/_10sdp"
-                    android:paddingTop="@dimen/_10sdp"
+                    android:paddingTop="@dimen/_5sdp"
                     tools:text="@string/app_name" />
 
                 <TextView

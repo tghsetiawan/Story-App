@@ -11,7 +11,7 @@ import com.teguh.storyapp.data.local.entity.StoryEntity
 import com.teguh.storyapp.databinding.ItemRvStoryBinding
 import com.teguh.storyapp.ui.adapter.StoryAdapter.HomeViewHolder
 
-class StoryAdapter : PagingDataAdapter<StoryEntity, HomeViewHolder>(DiffCallback) {
+class StoryAdapter : PagingDataAdapter<StoryEntity, HomeViewHolder>(DIFF_CALLBACK) {
 
     var onItemClick: ((StoryEntity, ImageView, TextView, TextView) -> Unit)? = null
 
@@ -37,13 +37,15 @@ class StoryAdapter : PagingDataAdapter<StoryEntity, HomeViewHolder>(DiffCallback
         }
     }
 
-    companion object DiffCallback: DiffUtil.ItemCallback<StoryEntity>(){
-        override fun areItemsTheSame(oldItem: StoryEntity, newItem: StoryEntity): Boolean {
-            return oldItem === newItem
-        }
+    companion object {
+        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<StoryEntity>() {
+            override fun areItemsTheSame(oldItem: StoryEntity, newItem: StoryEntity): Boolean {
+                return oldItem == newItem
+            }
 
-        override fun areContentsTheSame(oldItem: StoryEntity, newItem: StoryEntity): Boolean {
-            return oldItem.id == newItem.id
+            override fun areContentsTheSame(oldItem: StoryEntity, newItem: StoryEntity): Boolean {
+                return oldItem.id == newItem.id
+            }
         }
     }
 

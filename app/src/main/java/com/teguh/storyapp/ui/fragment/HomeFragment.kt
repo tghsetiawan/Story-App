@@ -65,7 +65,6 @@ class HomeFragment : Fragment()  {
         token = getPreference(requireContext(), Constant.USER_TOKEN)
 
         binding?.reyclerView?.setHasFixedSize(true)
-//        binding?.reyclerView?.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
         binding?.reyclerView?.layoutManager = LinearLayoutManager(requireContext())
 
         val factoryStory: StoryViewModelFactory = StoryViewModelFactory.getInstance(requireActivity())
@@ -78,20 +77,20 @@ class HomeFragment : Fragment()  {
             }
         )
 
-        this@HomeFragment.showLoading()
-        storyViewModel?.getStories(token!!)?.observe(viewLifecycleOwner) { res ->
-            if(res != null){
-                storyAdapter.submitData(lifecycle, res)
-                binding?.reyclerView?.visible()
-                binding?.lottieError?.gone()
-                binding?.tvError?.gone()
-            } else {
-                binding?.reyclerView?.gone()
-                binding?.lottieError?.visible()
-                binding?.tvError?.visible()
-            }
-            hideLoading()
-        }
+//        this@HomeFragment.showLoading()
+//        storyViewModel?.getStories(token!!)?.observe(viewLifecycleOwner) { res ->
+//            if(res != null){
+//                storyAdapter.submitData(lifecycle, res)
+//                binding?.reyclerView?.visible()
+//                binding?.lottieError?.gone()
+//                binding?.tvError?.gone()
+//            } else {
+//                binding?.reyclerView?.gone()
+//                binding?.lottieError?.visible()
+//                binding?.tvError?.visible()
+//            }
+//            hideLoading()
+//        }
 
         activity?.window?.statusBarColor = resources.getColor(R.color.colorBackground_1)
         (requireActivity() as AppCompatActivity).supportActionBar?.hide()
@@ -115,5 +114,27 @@ class HomeFragment : Fragment()  {
                 HomeFragmentDirections.actionHomeFragmentToStoryDetailFragment(dataStory)
             findNavController().navigate(action, extras)
         }
+    }
+
+    private fun loadStory(){
+        this@HomeFragment.showLoading()
+        storyViewModel?.getStories(token!!)?.observe(viewLifecycleOwner) { res ->
+            if(res != null){
+                storyAdapter.submitData(lifecycle, res)
+                binding?.reyclerView?.visible()
+                binding?.lottieError?.gone()
+                binding?.tvError?.gone()
+            } else {
+                binding?.reyclerView?.gone()
+                binding?.lottieError?.visible()
+                binding?.tvError?.visible()
+            }
+            hideLoading()
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        loadStory()
     }
 }

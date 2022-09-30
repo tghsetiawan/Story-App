@@ -65,7 +65,6 @@ class HomeFragment : Fragment()  {
         token = getPreference(requireContext(), Constant.USER_TOKEN)
 
         binding?.reyclerView?.setHasFixedSize(true)
-//        binding?.reyclerView?.layoutManager = LinearLayoutManager(requireContext())
         binding?.reyclerView?.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
 
         val factoryStory: StoryViewModelFactory = StoryViewModelFactory.getInstance(requireActivity())
@@ -78,21 +77,6 @@ class HomeFragment : Fragment()  {
             }
         )
 
-//        this@HomeFragment.showLoading()
-//        storyViewModel?.getStories(token!!)?.observe(viewLifecycleOwner) { res ->
-//            if(res != null){
-//                storyAdapter.submitData(lifecycle, res)
-//                binding?.reyclerView?.visible()
-//                binding?.lottieError?.gone()
-//                binding?.tvError?.gone()
-//            } else {
-//                binding?.reyclerView?.gone()
-//                binding?.lottieError?.visible()
-//                binding?.tvError?.visible()
-//            }
-//            hideLoading()
-//        }
-
         activity?.window?.statusBarColor = resources.getColor(R.color.colorBackground_1)
         (requireActivity() as AppCompatActivity).supportActionBar?.hide()
 
@@ -102,6 +86,10 @@ class HomeFragment : Fragment()  {
 
         binding?.ivSetting?.setOnClickListener {
             findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToSettingFragment())
+        }
+
+        binding?.ivMap?.setOnClickListener {
+            findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToMapsFragment())
         }
 
         // Detail Story

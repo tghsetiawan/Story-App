@@ -1,5 +1,6 @@
 package com.teguh.storyapp.data.paging
 
+import android.util.Log
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
 import androidx.paging.PagingState
@@ -9,6 +10,7 @@ import com.teguh.storyapp.data.local.entity.RemoteKeysEntity
 import com.teguh.storyapp.data.local.entity.StoryEntity
 import com.teguh.storyapp.data.local.room.StoryDatabase
 import com.teguh.storyapp.data.remote.retrofit.ApiService
+import com.teguh.storyapp.utils.Param.Companion.TAG
 
 @OptIn(ExperimentalPagingApi::class)
 class StoryRemoteMediator (
@@ -46,7 +48,8 @@ class StoryRemoteMediator (
         }
 
         return try {
-            val responseData = apiService.getStory(token, page, state.config.pageSize)
+            val responseData = apiService.getStory(token, page, state.config.pageSize, 0)
+            Log.e(TAG, "Get Story Response : ${responseData.listStory}" )
             val endOfPaginationReached = responseData.listStory.isEmpty()
             database.withTransaction {
                 if (loadType == LoadType.REFRESH) {

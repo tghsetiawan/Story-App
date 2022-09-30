@@ -14,5 +14,5 @@ class StoryViewModel (private val storyAppRepository: StoryAppRepository) : View
     fun addStory(token: String?, file: MultipartBody.Part?, description: RequestBody?, lat: RequestBody?, lon: RequestBody?) = storyAppRepository.addStory(token, file, description, lat, lon)
 
     fun getStories(token: String) : LiveData<PagingData<StoryEntity>> =
-        storyAppRepository.getMapStory(token).cachedIn(viewModelScope)
+        storyAppRepository.getStory(token).cachedIn(viewModelScope)
 }

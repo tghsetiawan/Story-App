@@ -57,6 +57,9 @@
         <action
             android:id="@+id/action_homeFragment_to_settingFragment"
             app:destination="@id/settingFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_mapsFragment"
+            app:destination="@id/mapsFragment" />
     </fragment>
     <fragment
         android:id="@+id/createStoryFragment"
@@ -84,4 +87,9 @@
             android:id="@+id/action_settingFragment_to_splashScreenFragment"
             app:destination="@id/splashScreenFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/mapsFragment"
+        android:name="com.teguh.storyapp.ui.fragment.MapsFragment"
+        android:label="MapsFragment"
+        tools:layout="@layout/fragment_maps"/>
 </navigation>

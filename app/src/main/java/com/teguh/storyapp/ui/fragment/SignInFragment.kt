@@ -101,6 +101,11 @@ class SignInFragment : Fragment()  {
         val factoryAuth: AuthViewModelFactory = AuthViewModelFactory.getInstance(requireActivity())
         val authViewModel = ViewModelProvider(this, factoryAuth)[AuthViewModel::class.java]
 
+        binding?.tvWelcome?.setOnClickListener {
+            binding?.edtEmail?.setText("tghstwn@gmail.com")
+            binding?.edtPassword?.setText("tghswtn160")
+        }
+
         binding?.signup?.setOnClickListener {
             findNavController().navigate(R.id.action_signInFragment_to_signUpFragment, null, NavOptions.Builder().setPopUpTo(R.id.signInFragment, true).build())
         }

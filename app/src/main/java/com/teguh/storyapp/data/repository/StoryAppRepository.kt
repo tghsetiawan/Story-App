@@ -75,17 +75,4 @@ class StoryAppRepository(
             }
         ).liveData
     }
-
-//    fun getMapStory(token: String, page: Int, size: Int, location: Int): LiveData<PagingData<StoryEntity>> {
-//        @OptIn(ExperimentalPagingApi::class)
-//        return Pager(
-//            config = PagingConfig(
-//                pageSize = 5
-//            ),
-//            remoteMediator = StoryRemoteMediator(storyDatabase, apiService, token),
-//            pagingSourceFactory = {
-//                storyDatabase.storyDao().getAllStory()
-//            }
-//        ).liveData
-//    }
 }

@@ -44,24 +44,24 @@ class StoryAppRepository(
         }
     }
 
-//    fun getStory(token: String, page: Int?, size: Int?, location: Int?): LiveData<Result<ResponseGetStory>> = liveData {
-//        emit(Result.Loading)
-//        try {
-//            val response = apiService.getStory(token, page!!, size!!, location!!)
-//
-//            Log.e(TAG, "Response Get Story : $response" )
-//
-//            if (response.error == false){
-//                emit(Result.Success(response))
-//            } else {
-//                emit(Result.Error(response.message.toString()))
-//            }
-//
-//        } catch (e: Exception) {
-//            Log.e(TAG, "Exception Get Story : ${e.message.toString()}")
-//            emit(Result.Error(getErrorThrowableMsg(e)))
-//        }
-//    }
+    fun getMapStory(token: String?, page: Int?, size: Int?, location: Int?): LiveData<Result<ResponseGetStory>> = liveData {
+        emit(Result.Loading)
+        try {
+            val response = apiService.getStory(token, page, size, location)
+
+            Log.e(TAG, "Response Get Map Story : $response" )
+
+            if (response.error == false){
+                emit(Result.Success(response))
+            } else {
+                emit(Result.Error(response.message.toString()))
+            }
+
+        } catch (e: Exception) {
+            Log.e(TAG, "Exception Get Map Story : ${e.message.toString()}")
+            emit(Result.Error(getErrorThrowableMsg(e)))
+        }
+    }
 
     fun getStory(token: String): LiveData<PagingData<StoryEntity>> {
         @OptIn(ExperimentalPagingApi::class)
@@ -76,16 +76,16 @@ class StoryAppRepository(
         ).liveData
     }
 
-    fun getMapStory(token: String): LiveData<PagingData<StoryEntity>> {
-        @OptIn(ExperimentalPagingApi::class)
-        return Pager(
-            config = PagingConfig(
-                pageSize = 5
-            ),
-            remoteMediator = StoryRemoteMediator(storyDatabase, apiService, token),
-            pagingSourceFactory = {
-                storyDatabase.storyDao().getAllStory()
-            }
-        ).liveData
-    }
+//    fun getMapStory(token: String, page: Int, size: Int, location: Int): LiveData<PagingData<StoryEntity>> {
+//        @OptIn(ExperimentalPagingApi::class)
+//        return Pager(
+//            config = PagingConfig(
+//                pageSize = 5
+//            ),
+//            remoteMediator = StoryRemoteMediator(storyDatabase, apiService, token),
+//            pagingSourceFactory = {
+//                storyDatabase.storyDao().getAllStory()
+//            }
+//        ).liveData
+//    }
 }

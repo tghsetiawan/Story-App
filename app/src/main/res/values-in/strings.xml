@@ -37,4 +37,6 @@
     <string name="write_happy_story">Daftar dan Bagikan Kisah Bahagia</string>
     <string name="exit_app">Keluar Aplikasi</string>
     <string name="text_exit_app">Yakin keluar aplikasi?</string>
+    <string name="access_location_off">Akses lokasi mati</string>
+    <string name="turn_on">Nyalakan</string>
 </resources>

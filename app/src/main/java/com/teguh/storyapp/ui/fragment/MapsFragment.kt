@@ -11,6 +11,9 @@ import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavOptions
+import androidx.navigation.fragment.findNavController
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -20,12 +23,18 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MapStyleOptions
 import com.google.android.gms.maps.model.MarkerOptions
 import com.teguh.storyapp.R
+import com.teguh.storyapp.data.Result
 import com.teguh.storyapp.databinding.FragmentMapsBinding
+import com.teguh.storyapp.utils.*
 import com.teguh.storyapp.utils.Param.Companion.TAG
+import com.teguh.storyapp.viewmodel.StoryViewModel
+import com.teguh.storyapp.viewmodel.StoryViewModelFactory
 
 class MapsFragment : Fragment() {
     private var binding: FragmentMapsBinding? = null
     private lateinit var mMap: GoogleMap
+    private var storyViewModel: StoryViewModel? = null
+    private var token: String? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentMapsBinding.inflate(inflater, container, false)
@@ -34,6 +43,10 @@ class MapsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        token = getPreference(requireContext(), Constant.USER_TOKEN)
+        val factoryStory: StoryViewModelFactory = StoryViewModelFactory.getInstance(requireActivity())
+        storyViewModel = ViewModelProvider(this, factoryStory)[StoryViewModel::class.java]
+
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
         mapFragment?.getMapAsync(callback)
     }
@@ -56,9 +69,42 @@ class MapsFragment : Fragment() {
             poiMarker?.showInfoWindow()
         }
 
-//        loadStory()
+        loadStory()
         getMyLocation()
         setCustomMapStyle()
+    }
+
+    private fun loadStory(){
+        storyViewModel?.getMapStories(token!!, page = 1, size = 10, location = 1)?.observe(viewLifecycleOwner) { res ->
+            if (res != null) {
+                when (res) {
+                    is Result.Loading -> {
+                        this@MapsFragment.showLoading()
+                    }
+                    is Result.Success -> {
+                        Log.e(Param.TAG, "Success Map Stories : ${res.data.message} ")
+                        hideLoading()
+                        val listStory = res.data.listStory
+                        if (listStory != null) {
+                            for (i in listStory) {
+                                val listLatLng = LatLng(i.lat ?: 0.0,  i.lon ?: 0.0)
+                                mMap.addMarker(
+                                    MarkerOptions()
+                                        .position(listLatLng)
+                                        .title(i.name)
+                                        .snippet(i.description)
+                                )
+                                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(listLatLng, 15F))
+                            }
+                        }
+                    }
+                    is Result.Error -> {
+                        Log.e(Param.TAG, "Error Map Stories : ${res.error} ")
+                        hideLoading()
+                    }
+                }
+            }
+        }
     }
 
     private fun setCustomMapStyle() {

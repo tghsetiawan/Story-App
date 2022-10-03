@@ -1,25 +1,32 @@
 package com.teguh.storyapp
 
-import com.teguh.storyapp.data.local.entity.StoryEntity
 import com.teguh.storyapp.data.remote.request.RequestRegister
+import com.teguh.storyapp.data.remote.response.ListStory
+import com.teguh.storyapp.data.remote.response.ResponseGetStory
 import com.teguh.storyapp.data.remote.response.ResponseRegister
 
 object DataDummy {
-    fun generateDummyStoryEntity(): List<StoryEntity> {
-        val storyList = ArrayList<StoryEntity>()
+    fun generateDummyStoryEntity(): ResponseGetStory {
+        val storyList = ArrayList<ListStory>()
         for (i in 0..10) {
-            val stories = StoryEntity(
+            val stories = ListStory(
                 "story-$i",
                 "dicoding",
                 "dicoding story desc",
                 "https://dicoding-web-img.sgp1.cdn.digitaloceanspaces.com/original/commons/feature-1-kurikulum-global-3.png",
                 "2022-10-03T03:48:09.330Z",
-                null,
-                null,
+                -6.288288288288288,
+                106.82289451908555,
             )
             storyList.add(stories)
         }
-        return storyList
+
+        val stories = ResponseGetStory(
+            false,
+            "Stories fetched successfully",
+            storyList,
+        )
+        return stories
     }
 
     fun generateDummyRegisterResponse(): ResponseRegister {
@@ -38,4 +45,5 @@ object DataDummy {
         )
         return  req
     }
+
 }

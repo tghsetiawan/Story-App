@@ -11,9 +11,9 @@ import okhttp3.MultipartBody
 import okhttp3.RequestBody
 
 class StoryViewModel (private val storyAppRepository: StoryAppRepository) : ViewModel(){
-    fun addStory(token: String?, file: MultipartBody.Part?, description: RequestBody?, lat: RequestBody?, lon: RequestBody?) = storyAppRepository.addStory(token, file, description, lat, lon)
+    fun addStory(file: MultipartBody.Part?, description: RequestBody?, lat: RequestBody?, lon: RequestBody?) = storyAppRepository.addStory(file, description, lat, lon)
 
-    fun getMapStories(token: String?, page: Int?, size: Int?, location: Int?) = storyAppRepository.getMapStory(token, page, size, location)
+    fun getMapStories(page: Int?, size: Int?, location: Int?) = storyAppRepository.getMapStory(page, size, location)
 
-    fun getStories(token: String) : LiveData<PagingData<StoryEntity>> = storyAppRepository.getStory(token).cachedIn(viewModelScope)
+    fun getStories() : LiveData<PagingData<StoryEntity>> = storyAppRepository.getStory().cachedIn(viewModelScope)
 }

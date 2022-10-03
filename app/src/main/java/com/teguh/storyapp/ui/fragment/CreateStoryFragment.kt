@@ -100,7 +100,7 @@ class CreateStoryFragment : Fragment()  {
 
         binding?.ivDone?.setOnClickListener {
             if (getFile != null) {
-                val token = getPreference(requireContext(), Constant.USER_TOKEN)
+//                val token = getPreference(requireContext(), Constant.USER_TOKEN)
                 val file = reduceFileImage(getFile as File)
                 val description = binding?.edtDescription?.text.toString()
                 val requestImageFile =
@@ -121,7 +121,6 @@ class CreateStoryFragment : Fragment()  {
                         longitude.toString().toRequestBody("text/plain".toMediaType()) else null
 
                     storyViewModel?.addStory(
-                        token,
                         imageMultipart,
                         descriptionRequestBody,
                         latitudeRequestBody,

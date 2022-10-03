@@ -75,7 +75,7 @@ class MapsFragment : Fragment() {
     }
 
     private fun loadStory(){
-        storyViewModel?.getMapStories(token!!, page = 1, size = 10, location = 1)?.observe(viewLifecycleOwner) { res ->
+        storyViewModel?.getMapStories(page = 1, size = 10, location = 1)?.observe(viewLifecycleOwner) { res ->
             if (res != null) {
                 when (res) {
                     is Result.Loading -> {

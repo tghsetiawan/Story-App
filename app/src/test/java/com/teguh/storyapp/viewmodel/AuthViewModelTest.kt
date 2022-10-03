@@ -15,7 +15,6 @@ import org.mockito.Mock
 import org.mockito.Mockito
 import org.mockito.junit.MockitoJUnitRunner
 import com.teguh.storyapp.data.Result
-import com.teguh.storyapp.data.remote.request.RequestRegister
 
 @RunWith(MockitoJUnitRunner::class)
 class AuthViewModelTest{

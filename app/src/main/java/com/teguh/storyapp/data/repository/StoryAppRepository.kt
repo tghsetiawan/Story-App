@@ -1,6 +1,8 @@
 package com.teguh.storyapp.data.repository
 
+import android.content.Context
 import android.util.Log
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
 import androidx.paging.*
@@ -15,17 +17,20 @@ import com.teguh.storyapp.data.paging.StoryRemoteMediator
 import com.teguh.storyapp.data.remote.response.ResponseAddStory
 import com.teguh.storyapp.data.remote.response.ResponseGetStory
 import com.teguh.storyapp.data.remote.retrofit.ApiService
+import com.teguh.storyapp.utils.Constant
 import com.teguh.storyapp.utils.ErrorUtils.getErrorThrowableMsg
 import com.teguh.storyapp.utils.Param.Companion.TAG
+import com.teguh.storyapp.utils.getPreference
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import java.lang.Exception
 
 class StoryAppRepository(
+    private val token: String,
     private val apiService: ApiService,
     private val storyDatabase: StoryDatabase
 ) {
-    fun addStory(token: String?, file: MultipartBody.Part?, description: RequestBody?, lat: RequestBody?, lon: RequestBody?): LiveData<Result<ResponseAddStory>> = liveData {
+    fun addStory(file: MultipartBody.Part?, description: RequestBody?, lat: RequestBody?, lon: RequestBody?): LiveData<Result<ResponseAddStory>> = liveData {
         emit(Result.Loading)
         try{
             val response = apiService.addStory(token, file!!, description!!, lat, lon)
@@ -44,7 +49,7 @@ class StoryAppRepository(
         }
     }
 
-    fun getMapStory(token: String?, page: Int?, size: Int?, location: Int?): LiveData<Result<ResponseGetStory>> = liveData {
+    fun getMapStory(page: Int?, size: Int?, location: Int?): LiveData<Result<ResponseGetStory>> = liveData {
         emit(Result.Loading)
         try {
             val response = apiService.getStory(token, page, size, location)
@@ -63,7 +68,7 @@ class StoryAppRepository(
         }
     }
 
-    fun getStory(token: String): LiveData<PagingData<StoryEntity>> {
+    fun getStory(): LiveData<PagingData<StoryEntity>> {
         @OptIn(ExperimentalPagingApi::class)
         return Pager(
             config = PagingConfig(

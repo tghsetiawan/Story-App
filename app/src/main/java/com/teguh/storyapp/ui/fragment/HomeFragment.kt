@@ -107,7 +107,7 @@ class HomeFragment : Fragment()  {
 
     private fun loadStory(){
         this@HomeFragment.showLoading()
-        storyViewModel?.getStories(token!!)?.observe(viewLifecycleOwner) { res ->
+        storyViewModel?.getStories()?.observe(viewLifecycleOwner) { res ->
             if(res != null){
                 storyAdapter.submitData(lifecycle, res)
                 binding?.reyclerView?.visible()

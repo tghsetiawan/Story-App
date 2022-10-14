@@ -15,5 +15,5 @@ class StoryViewModel (private val storyAppRepository: StoryAppRepository) : View
 
     fun getMapStories(page: Int?, size: Int?, location: Int?) = storyAppRepository.getMapStory(page, size, location)
 
-    fun getStories() : LiveData<PagingData<StoryEntity>> = storyAppRepository.getStory().cachedIn(viewModelScope)
+    fun getStories(): LiveData<PagingData<StoryEntity>> = storyAppRepository.getStory().cachedIn(viewModelScope)
 }

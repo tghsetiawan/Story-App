@@ -44,7 +44,7 @@
         <ImageView
             android:id="@+id/img_story"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="350dp"
             android:layout_marginTop="@dimen/_15sdp"
             android:contentDescription="@string/image_story"
             android:loadImage="@{viewmodel.photoUrl}"

@@ -23,11 +23,14 @@ class StoryRemoteMediator (
         const val INITIAL_PAGE_INDEX = 1
     }
 
+    override suspend fun initialize(): InitializeAction {
+        return InitializeAction.LAUNCH_INITIAL_REFRESH
+    }
+
     override suspend fun load(
         loadType: LoadType,
         state: PagingState<Int, StoryEntity>
     ): MediatorResult {
-
         val page = when (loadType) {
             LoadType.REFRESH ->{
                 val remoteKeys = getRemoteKeyClosestToCurrentPosition(state)
@@ -47,34 +50,29 @@ class StoryRemoteMediator (
             }
         }
 
-        return try {
+        try {
             val responseData = apiService.getStory(token, page, state.config.pageSize, 0)
-            Log.e(TAG, "Get Story Response : ${responseData.listStory}" )
+            Log.e(TAG, "Get Story Response : ${responseData.listStory}")
+
             val endOfPaginationReached = responseData.listStory.isEmpty()
+
             database.withTransaction {
                 if (loadType == LoadType.REFRESH) {
-                    database.storyDao().deleteAll()
                     database.remoteKeysDao().deleteRemoteKeys()
+                    database.storyDao().deleteAll()
                 }
                 val prevKey = if (page == 1) null else page - 1
                 val nextKey = if (endOfPaginationReached) null else page + 1
                 val keys = responseData.listStory.map {
                     RemoteKeysEntity(id = it.id, prevKey = prevKey, nextKey = nextKey)
                 }
-                val stories = responseData.listStory.map {
-                    StoryEntity(it.id, it.name, it.description, it.photoUrl, it.createdAt, it.lon, it.lat)
-                }
                 database.remoteKeysDao().insertAll(keys)
-                database.storyDao().insertStory(stories)
+                database.storyDao().insertStory(responseData.listStory)
             }
-            MediatorResult.Success(endOfPaginationReached = endOfPaginationReached)
+            return MediatorResult.Success(endOfPaginationReached = endOfPaginationReached)
         } catch (exception: Exception) {
-            MediatorResult.Error(exception)
+            return MediatorResult.Error(exception)
         }
-    }
-
-    override suspend fun initialize(): InitializeAction {
-        return InitializeAction.LAUNCH_INITIAL_REFRESH
     }
 
     private suspend fun getRemoteKeyForLastItem(state: PagingState<Int, StoryEntity>): RemoteKeysEntity? {

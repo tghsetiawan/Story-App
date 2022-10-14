@@ -15,6 +15,10 @@ import org.mockito.Mock
 import org.mockito.Mockito
 import org.mockito.junit.MockitoJUnitRunner
 import com.teguh.storyapp.data.Result
+import com.teguh.storyapp.data.remote.response.ResponseGetStory
+import com.teguh.storyapp.data.remote.response.ResponseLogin
+import com.teguh.storyapp.getOrAwaitValue
+import kotlinx.coroutines.test.runTest
 
 @RunWith(MockitoJUnitRunner::class)
 class AuthViewModelTest{
@@ -26,6 +30,8 @@ class AuthViewModelTest{
     private lateinit var authViewModel: AuthViewModel
     private val dummyAuthRegisterResponse = DataDummy.generateDummyRegisterResponse()
     private val dummyAuthRegisterRequest = DataDummy.generateDummyRegisterRequestBody()
+    private val dummyAuthLoginResponse = DataDummy.generateDummyLoginResponse()
+    private val dummyAuthLoginRequest = DataDummy.generateDummyLoginRequest()
 
     @Before
     fun setUp() {
@@ -33,37 +39,55 @@ class AuthViewModelTest{
     }
 
     @Test
-    fun `when Register Should Not Null and Return Success`() {
-        val observer = Observer<Result<ResponseRegister>> {}
-        try {
-            val expectedRegister = MutableLiveData<Result<ResponseRegister>>()
-            expectedRegister.value = Result.Success(dummyAuthRegisterResponse)
-            Mockito.`when`(userAuthRepository.register(dummyAuthRegisterRequest)).thenReturn(expectedRegister)
+    fun `when Register Should Not Null and Return Success`() = runTest {
+        val expectedRegister = MutableLiveData<Result<ResponseRegister>>()
+        expectedRegister.value = Result.Success(dummyAuthRegisterResponse)
 
-            val actualNews = authViewModel.register(dummyAuthRegisterRequest).observeForever(observer)
+        Mockito.`when`(userAuthRepository.register(dummyAuthRegisterRequest)).thenReturn(expectedRegister)
 
-            Mockito.verify(userAuthRepository).register(dummyAuthRegisterRequest)
-            Assert.assertNotNull(actualNews)
-        } finally {
-            authViewModel.register(dummyAuthRegisterRequest).removeObserver(observer)
-        }
+        val actual = authViewModel.register(dummyAuthRegisterRequest).getOrAwaitValue()
+        Mockito.verify(userAuthRepository).register(dummyAuthRegisterRequest)
+        Assert.assertNotNull(actual)
+        Assert.assertTrue(actual is Result.Success)
     }
 
     @Test
-    fun `when Register Network Error Should Return Error`() {
-        val observer = Observer<Result<ResponseRegister>> {}
-        try {
-            val expectedRegister = MutableLiveData<Result<ResponseRegister>>()
-            expectedRegister.value = Result.Error("Error")
-            Mockito.`when`(userAuthRepository.register(dummyAuthRegisterRequest)).thenReturn(expectedRegister)
+    fun `when Register Network Error Should Return Error`() = runTest {
+        val expectedRegister = MutableLiveData<Result<ResponseRegister>>()
+        expectedRegister.value = Result.Error("Error")
 
-            val actualNews = authViewModel.register(dummyAuthRegisterRequest).observeForever(observer)
+        Mockito.`when`(userAuthRepository.register(dummyAuthRegisterRequest)).thenReturn(expectedRegister)
 
-            Mockito.verify(userAuthRepository).register(dummyAuthRegisterRequest)
-            Assert.assertNotNull(actualNews)
-        } finally {
-            authViewModel.register(dummyAuthRegisterRequest).removeObserver(observer)
-        }
+        val actual = authViewModel.register(dummyAuthRegisterRequest).getOrAwaitValue()
+        Mockito.verify(userAuthRepository).register(dummyAuthRegisterRequest)
+        Assert.assertNotNull(actual)
+        Assert.assertTrue(actual is Result.Error)
+    }
+
+    @Test
+    fun `when Login Should Not Null and Return Success`() = runTest {
+        val expectedLogin = MutableLiveData<Result<ResponseLogin>>()
+        expectedLogin.value = Result.Success(dummyAuthLoginResponse)
+
+        Mockito.`when`(userAuthRepository.login(dummyAuthLoginRequest)).thenReturn(expectedLogin)
+
+        val actual = authViewModel.login(dummyAuthLoginRequest).getOrAwaitValue()
+        Mockito.verify(userAuthRepository).login(dummyAuthLoginRequest)
+        Assert.assertNotNull(actual)
+        Assert.assertTrue(actual is Result.Success)
+    }
+
+    @Test
+    fun `when Login Network Error Should Return Error`() = runTest {
+        val expectedLogin = MutableLiveData<Result<ResponseLogin>>()
+        expectedLogin.value = Result.Error("Error")
+
+        Mockito.`when`(userAuthRepository.login(dummyAuthLoginRequest)).thenReturn(expectedLogin)
+
+        val actual = authViewModel.login(dummyAuthLoginRequest).getOrAwaitValue()
+        Mockito.verify(userAuthRepository).login(dummyAuthLoginRequest)
+        Assert.assertNotNull(actual)
+        Assert.assertTrue(actual is Result.Error)
     }
 
 }

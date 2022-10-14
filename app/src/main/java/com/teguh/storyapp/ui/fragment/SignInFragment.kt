@@ -37,10 +37,10 @@ class SignInFragment : Fragment()  {
                 alertDialog.apply {
                     setTitle(R.string.exit_app)
                     setMessage(R.string.text_exit_app)
-                    setPositiveButton(context.getString(R.string.yes)) { dialog, which ->
+                    setPositiveButton(context.getString(R.string.yes)) { _, _ ->
                         activity?.finish()
                     }
-                    setNegativeButton(context.getString(R.string.no)) { dialog, which ->
+                    setNegativeButton(context.getString(R.string.no)) { dialog, _ ->
                         dialog.dismiss()
                     }
                 }
@@ -75,7 +75,9 @@ class SignInFragment : Fragment()  {
                 override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                    setEnabledButton()
+                    if(s.toString().length >= 2) {
+                        setEnabledButton()
+                    }
                 }
 
                 override fun afterTextChanged(s: Editable?) {}
@@ -100,11 +102,6 @@ class SignInFragment : Fragment()  {
 
         val factoryAuth: AuthViewModelFactory = AuthViewModelFactory.getInstance(requireActivity())
         val authViewModel = ViewModelProvider(this, factoryAuth)[AuthViewModel::class.java]
-
-        binding?.tvWelcome?.setOnClickListener {
-            binding?.edtEmail?.setText("tghstwn@gmail.com")
-            binding?.edtPassword?.setText("tghswtn160")
-        }
 
         binding?.signup?.setOnClickListener {
             findNavController().navigate(R.id.action_signInFragment_to_signUpFragment, null, NavOptions.Builder().setPopUpTo(R.id.signInFragment, true).build())

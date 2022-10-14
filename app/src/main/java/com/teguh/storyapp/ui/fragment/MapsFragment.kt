@@ -12,8 +12,6 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.NavOptions
-import androidx.navigation.fragment.findNavController
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -35,6 +33,7 @@ class MapsFragment : Fragment() {
     private lateinit var mMap: GoogleMap
     private var storyViewModel: StoryViewModel? = null
     private var token: String? = null
+    private lateinit var listImage: ArrayList<String>
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentMapsBinding.inflate(inflater, container, false)
@@ -82,7 +81,20 @@ class MapsFragment : Fragment() {
                         this@MapsFragment.showLoading()
                     }
                     is Result.Success -> {
-                        Log.e(Param.TAG, "Success Map Stories : ${res.data.message} ")
+                        Log.e(TAG, "Success Map Stories : ${res.data.message} ")
+                        /*
+                         * Input list image to show in stack widget
+                        * */
+                        listImage = ArrayList()
+                        for (i in res.data.listStory) {
+                            listImage.addAll(listOf(i.photoUrl))
+                        }
+                        putListPreference(
+                            requireContext(),
+                            Constant.LIST_STRING,
+                            listImage
+                        )
+
                         hideLoading()
                         val listStory = res.data.listStory
                         if (listStory != null) {
@@ -99,7 +111,7 @@ class MapsFragment : Fragment() {
                         }
                     }
                     is Result.Error -> {
-                        Log.e(Param.TAG, "Error Map Stories : ${res.error} ")
+                        Log.e(TAG, "Error Map Stories : ${res.error} ")
                         hideLoading()
                     }
                 }

@@ -10,10 +10,9 @@ import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.teguh.storyapp.R
 import com.teguh.storyapp.data.local.entity.StoryEntity
@@ -26,9 +25,12 @@ import com.teguh.storyapp.viewmodel.StoryViewModelFactory
 
 class HomeFragment : Fragment()  {
     private var binding: FragmentHomeBinding? = null
-    private var storyViewModel: StoryViewModel? = null
     private lateinit var storyAdapter: StoryAdapter
     private var token: String? = null
+
+    private val storyViewModel: StoryViewModel by viewModels {
+        StoryViewModelFactory.getInstance(requireContext())
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,10 +40,10 @@ class HomeFragment : Fragment()  {
                 alertDialog.apply {
                     setTitle(R.string.exit_app)
                     setMessage(R.string.text_exit_app)
-                    setPositiveButton(context.getString(R.string.yes)) { dialog, which ->
+                    setPositiveButton(context.getString(R.string.yes)) { _, _ ->
                         activity?.finish()
                     }
-                    setNegativeButton(context.getString(R.string.no)) { dialog, which ->
+                    setNegativeButton(context.getString(R.string.no)) { dialog, _ ->
                         dialog.dismiss()
                     }
                 }
@@ -65,17 +67,11 @@ class HomeFragment : Fragment()  {
         token = getPreference(requireContext(), Constant.USER_TOKEN)
 
         binding?.reyclerView?.setHasFixedSize(true)
-        binding?.reyclerView?.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+        binding?.reyclerView?.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
 
-        val factoryStory: StoryViewModelFactory = StoryViewModelFactory.getInstance(requireActivity())
-        storyViewModel = ViewModelProvider(this, factoryStory)[StoryViewModel::class.java]
         storyAdapter = StoryAdapter()
 
-        binding?.reyclerView?.adapter = storyAdapter.withLoadStateFooter(
-            footer = LoadingStateAdapter {
-                storyAdapter.retry()
-            }
-        )
+        loadStory()
 
         activity?.window?.statusBarColor = resources.getColor(R.color.colorBackground_1)
         (requireActivity() as AppCompatActivity).supportActionBar?.hide()
@@ -106,8 +102,14 @@ class HomeFragment : Fragment()  {
     }
 
     private fun loadStory(){
+        binding?.reyclerView?.adapter = storyAdapter.withLoadStateFooter(
+            footer = LoadingStateAdapter {
+                storyAdapter.retry()
+            }
+        )
+
         this@HomeFragment.showLoading()
-        storyViewModel?.getStories()?.observe(viewLifecycleOwner) { res ->
+        storyViewModel.getStories().observe(viewLifecycleOwner) { res ->
             if(res != null){
                 storyAdapter.submitData(lifecycle, res)
                 binding?.reyclerView?.visible()
@@ -120,10 +122,5 @@ class HomeFragment : Fragment()  {
             }
             hideLoading()
         }
-    }
-
-    override fun onResume() {
-        super.onResume()
-        loadStory()
     }
 }

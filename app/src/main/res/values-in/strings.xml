@@ -39,4 +39,8 @@
     <string name="text_exit_app">Yakin keluar aplikasi?</string>
     <string name="access_location_off">Akses lokasi mati</string>
     <string name="turn_on">Nyalakan</string>
+    <string name="app_widget_description">Ini deskripsi widget</string>
+    <string name="appwidget_text">WIDGET STORY APP</string>
+    <string name="empty_text">Tidak Ada Data</string>
+    <string name="share_my_location">Bagikan lokasi</string>
 </resources>

@@ -10,6 +10,7 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 @Entity(tableName = "story")
 data class StoryEntity(
+
     @PrimaryKey
     @NonNull
     @ColumnInfo(name = "id")
@@ -32,4 +33,4 @@ data class StoryEntity(
 
     @ColumnInfo(name = "lon")
     val lon: Double? = 0.0
-): Parcelable
+) : Parcelable

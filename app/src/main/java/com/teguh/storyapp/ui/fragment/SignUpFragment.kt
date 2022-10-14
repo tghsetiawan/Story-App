@@ -38,10 +38,10 @@ class SignUpFragment : Fragment()  {
                 alertDialog.apply {
                     setTitle(R.string.exit_app)
                     setMessage(R.string.text_exit_app)
-                    setPositiveButton(context.getString(R.string.yes)) { dialog, which ->
+                    setPositiveButton(context.getString(R.string.yes)) { _, _ ->
                         activity?.finish()
                     }
-                    setNegativeButton(context.getString(R.string.no)) { dialog, which ->
+                    setNegativeButton(context.getString(R.string.no)) { dialog, _ ->
                         dialog.dismiss()
                     }
                 }
@@ -56,7 +56,6 @@ class SignUpFragment : Fragment()  {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        //initialize databinding
         binding = FragmentSignUpBinding.inflate(inflater)
         return binding?.root
     }
@@ -114,7 +113,6 @@ class SignUpFragment : Fragment()  {
         activity?.window?.statusBarColor = resources.getColor(R.color.colorBackground_1)
         (requireActivity() as AppCompatActivity).supportActionBar?.hide()
 
-        // pergi ke halaman sign in
         binding?.signin?.setOnClickListener {
             findNavController().navigate(
                 R.id.action_signUpFragment_to_signInFragment,
@@ -123,7 +121,6 @@ class SignUpFragment : Fragment()  {
             )
         }
 
-        // button sign up
         binding?.btnRegister?.setOnClickListener {
             val name: String = binding?.edtName?.text.toString()
             val email: String = binding?.edtEmail?.text.toString()
@@ -140,7 +137,6 @@ class SignUpFragment : Fragment()  {
                             }
                             is Result.Success -> {
                                 Log.e(TAG, "Success : ${res.data.message} ")
-//                                hideLoading()
                                 login(email, password)
                             }
                             is Result.Error -> {

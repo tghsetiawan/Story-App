@@ -1,0 +1,4 @@
+`when Register Should Not Null and Return Success`
+`when Register Network Error Should Return Error`
+`when Get Stories Should Not Null and Return Success`
+`when Get Stories Network Error Should Return Error`

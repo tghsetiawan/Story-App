@@ -87,7 +87,7 @@
             android:layout_marginStart="@dimen/_25sdp"
             android:layout_marginTop="@dimen/_15sdp"
             android:fontFamily="@font/manrope3_bold"
-            android:text="Share My Location"
+            android:text="@string/share_my_location"
             android:textColor="@color/colorText_4"
             android:textSize="@dimen/_12ssp"
             app:layout_constraintStart_toStartOf="parent"

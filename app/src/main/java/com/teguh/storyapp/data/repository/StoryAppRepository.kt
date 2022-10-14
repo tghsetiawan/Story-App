@@ -1,8 +1,6 @@
 package com.teguh.storyapp.data.repository
 
-import android.content.Context
 import android.util.Log
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
 import androidx.paging.*
@@ -17,10 +15,8 @@ import com.teguh.storyapp.data.paging.StoryRemoteMediator
 import com.teguh.storyapp.data.remote.response.ResponseAddStory
 import com.teguh.storyapp.data.remote.response.ResponseGetStory
 import com.teguh.storyapp.data.remote.retrofit.ApiService
-import com.teguh.storyapp.utils.Constant
 import com.teguh.storyapp.utils.ErrorUtils.getErrorThrowableMsg
 import com.teguh.storyapp.utils.Param.Companion.TAG
-import com.teguh.storyapp.utils.getPreference
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import java.lang.Exception
@@ -30,6 +26,7 @@ class StoryAppRepository(
     private val apiService: ApiService,
     private val storyDatabase: StoryDatabase
 ) {
+
     fun addStory(file: MultipartBody.Part?, description: RequestBody?, lat: RequestBody?, lon: RequestBody?): LiveData<Result<ResponseAddStory>> = liveData {
         emit(Result.Loading)
         try{
@@ -52,11 +49,11 @@ class StoryAppRepository(
     fun getMapStory(page: Int?, size: Int?, location: Int?): LiveData<Result<ResponseGetStory>> = liveData {
         emit(Result.Loading)
         try {
-            val response = apiService.getStory(token, page, size, location)
+            val response = apiService.getStory(token, page!!, size!!, location!!)
 
-            Log.e(TAG, "Response Get Map Story : $response" )
+            Log.e(TAG, "Response Get Map Story : $response")
 
-            if (response.error == false){
+            if (response.error == false) {
                 emit(Result.Success(response))
             } else {
                 emit(Result.Error(response.message.toString()))
@@ -70,14 +67,15 @@ class StoryAppRepository(
 
     fun getStory(): LiveData<PagingData<StoryEntity>> {
         @OptIn(ExperimentalPagingApi::class)
-        return Pager(
-            config = PagingConfig(
-                pageSize = 5
-            ),
-            remoteMediator = StoryRemoteMediator(storyDatabase, apiService, token),
-            pagingSourceFactory = {
-                storyDatabase.storyDao().getAllStory()
-            }
-        ).liveData
-    }
+            return Pager(
+                config = PagingConfig(
+                    pageSize = 5
+                ),
+                remoteMediator = StoryRemoteMediator(storyDatabase, apiService, token),
+                pagingSourceFactory = {
+                    storyDatabase.storyDao().getAllStory()
+                }
+            ).liveData
+        }
+
 }

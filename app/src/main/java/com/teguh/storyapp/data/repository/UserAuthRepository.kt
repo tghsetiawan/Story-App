@@ -8,13 +8,13 @@ import com.teguh.storyapp.data.remote.request.RequestLogin
 import com.teguh.storyapp.data.remote.request.RequestRegister
 import com.teguh.storyapp.data.remote.response.ResponseLogin
 import com.teguh.storyapp.data.remote.response.ResponseRegister
-import com.teguh.storyapp.data.remote.retrofit.ApiService
+import com.teguh.storyapp.data.remote.retrofit.ApiServiceAuth
 import com.teguh.storyapp.utils.ErrorUtils
 import com.teguh.storyapp.utils.Param
 import java.lang.Exception
 
-class UserAuthRepository private constructor(
-private val apiService: ApiService
+class UserAuthRepository(
+private val apiService: ApiServiceAuth
 ) {
     fun register(request: RequestRegister): LiveData<Result<ResponseRegister>> = liveData {
         emit(Result.Loading)
@@ -62,7 +62,7 @@ private val apiService: ApiService
         @Volatile
         private var instance: UserAuthRepository? = null
         fun getInstance(
-            apiService: ApiService
+            apiService: ApiServiceAuth
         ): UserAuthRepository =
             instance ?: synchronized(this) {
                 instance ?: UserAuthRepository(apiService)

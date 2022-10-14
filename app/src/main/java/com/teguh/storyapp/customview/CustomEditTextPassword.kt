@@ -29,6 +29,8 @@ class CustomEditTextPassword: TextInputEditText {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 if (s.toString().length < 6) {
                     error = context.getString(R.string.invalid_password)
+                } else if (s.toString().length >= 6){
+                    error = null
                 }
             }
 

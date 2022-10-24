@@ -2,7 +2,6 @@ package com.teguh.storyapp.viewmodel
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Observer
 import com.teguh.storyapp.DataDummy
 import com.teguh.storyapp.data.remote.response.ResponseRegister
 import com.teguh.storyapp.data.repository.UserAuthRepository
@@ -15,7 +14,6 @@ import org.mockito.Mock
 import org.mockito.Mockito
 import org.mockito.junit.MockitoJUnitRunner
 import com.teguh.storyapp.data.Result
-import com.teguh.storyapp.data.remote.response.ResponseGetStory
 import com.teguh.storyapp.data.remote.response.ResponseLogin
 import com.teguh.storyapp.getOrAwaitValue
 import kotlinx.coroutines.test.runTest

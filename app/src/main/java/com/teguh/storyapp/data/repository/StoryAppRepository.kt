@@ -32,7 +32,7 @@ class StoryAppRepository(
         try{
             val response = apiService.addStory(token, file!!, description!!, lat, lon)
 
-            Log.e(TAG, "Response Add Story : $response")
+//            Log.e(TAG, "Response Add Story : $response")
 
             if (response.error == false){
                 emit(Result.Success(response))
@@ -41,7 +41,7 @@ class StoryAppRepository(
             }
 
         } catch (e: Exception){
-            Log.e(TAG, "Exception Add Story : ${e.message.toString()}" )
+//            Log.e(TAG, "Exception Add Story : ${e.message.toString()}" )
             emit(Result.Error(getErrorThrowableMsg(e)))
         }
     }
@@ -51,7 +51,7 @@ class StoryAppRepository(
         try {
             val response = apiService.getStory(token, page!!, size!!, location!!)
 
-            Log.e(TAG, "Response Get Map Story : $response")
+//            Log.e(TAG, "Response Get Map Story : $response")
 
             if (response.error == false) {
                 emit(Result.Success(response))
@@ -60,7 +60,7 @@ class StoryAppRepository(
             }
 
         } catch (e: Exception) {
-            Log.e(TAG, "Exception Get Map Story : ${e.message.toString()}")
+//            Log.e(TAG, "Exception Get Map Story : ${e.message.toString()}")
             emit(Result.Error(getErrorThrowableMsg(e)))
         }
     }

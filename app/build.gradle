@@ -104,19 +104,6 @@ dependencies {
     kapt 'androidx.room:room-compiler:2.5.0-alpha02'
     implementation 'androidx.room:room-paging:2.4.2'
 
-//    implementation 'androidx.room:room-ktx:2.4.2'
-//    kapt 'androidx.room:room-compiler:2.4.2'
-//    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1'
-//    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.4.1"
-//    implementation 'androidx.activity:activity-ktx:1.4.0'
-//    implementation "androidx.paging:paging-runtime-ktx:3.1.1"
-//    implementation 'androidx.room:room-paging:2.4.2'
-//
-//    androidTestImplementation "androidx.arch.core:core-testing:2.1.0"
-//    androidTestImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.1"
-//    testImplementation "androidx.arch.core:core-testing:2.1.0"
-//    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.1"
-
     // Location
     implementation 'com.google.android.gms:play-services-location:20.0.0'
 

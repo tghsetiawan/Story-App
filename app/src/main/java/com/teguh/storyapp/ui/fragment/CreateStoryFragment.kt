@@ -85,6 +85,25 @@ class CreateStoryFragment : Fragment()  {
             dialog.show()
         }
 
+        binding?.ivStory?.setOnClickListener {
+            val dialog = BottomSheetDialog(requireContext())
+            val binding = FragmentStoryBottomSheetBinding.inflate(layoutInflater)
+
+            binding.layoutAddImage.setOnClickListener {
+                dialog.cancel()
+                openGallery()
+            }
+
+            binding.layoutAddPhoto.setOnClickListener {
+                dialog.cancel()
+                openCamera()
+            }
+
+            dialog.setCancelable(true)
+            dialog.setContentView(binding.root)
+            dialog.show()
+        }
+
         binding?.ivBack?.setOnClickListener {
             navigateUp(it)
         }
@@ -152,7 +171,8 @@ class CreateStoryFragment : Fragment()  {
         intent.action = Intent.ACTION_GET_CONTENT
         intent.type = "image/*"
         val chooser = Intent.createChooser(intent, "Choose a Picture")
-        launcherIntentGallery.launch(chooser)
+//        launcherIntentGallery.launch(chooser)
+        launcherIntentGallery.launch("image/*")
     }
 
     private fun openCamera() {
@@ -170,15 +190,27 @@ class CreateStoryFragment : Fragment()  {
         }
     }
 
-    private val launcherIntentGallery = registerForActivityResult(
-        ActivityResultContracts.StartActivityForResult()
-    ) { result ->
-        if (result.resultCode == Activity.RESULT_OK) {
-            val selectedImg: Uri = result.data?.data as Uri
-            val myFile = uriToFile(selectedImg, requireContext())
-            getFile = myFile
+//    private val launcherIntentGallery = registerForActivityResult(
+//        ActivityResultContracts.StartActivityForResult()
+//    ) { result ->
+//        if (result.resultCode == Activity.RESULT_OK) {
+//            val selectedImg: Uri = result.data?.data as Uri
+//            val myFile = uriToFile(selectedImg, requireContext())
+//            getFile = myFile
+//
+//            binding?.ivStory?.setImageURI(selectedImg)
+//        }
+//    }
 
-            binding?.ivStory?.setImageURI(selectedImg)
+    private val launcherIntentGallery = registerForActivityResult(
+        ActivityResultContracts.GetContent()
+    ) { result ->
+        if (result != null) {
+            val myFile = uriToFile(result, requireContext())
+            getFile = myFile
+            binding?.ivStory?.setImageURI(result)
+        } else {
+            // TODO : Show error message to user when result of get image null
         }
     }
 

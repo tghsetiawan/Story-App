@@ -24,7 +24,7 @@ import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
-import org.junit.Assert
+import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -77,8 +77,8 @@ class StoryViewModelTest {
 
         val actual = storyViewModel.addStory(imageMultipart, descriptionRequestBody, null, null).getOrAwaitValue()
         Mockito.verify(storyAppRepository).addStory(imageMultipart, descriptionRequestBody, null, null)
-        Assert.assertNotNull(actual)
-        Assert.assertTrue(actual is Result.Error)
+        assertNotNull(actual)
+        assertTrue(actual is Result.Error)
     }
 
     @Test
@@ -106,8 +106,8 @@ class StoryViewModelTest {
 
         val actual = storyViewModel.addStory(imageMultipart, descriptionRequestBody, null, null).getOrAwaitValue()
         Mockito.verify(storyAppRepository).addStory(imageMultipart, descriptionRequestBody, null, null)
-        Assert.assertNotNull(actual)
-        Assert.assertTrue(actual is Result.Success)
+        assertNotNull(actual)
+        assertTrue(actual is Result.Success)
     }
 
     @Test
@@ -119,9 +119,9 @@ class StoryViewModelTest {
 
         val actual = storyViewModel.getMapStories(location = 1, page = 1, size = 5).getOrAwaitValue()
         Mockito.verify(storyAppRepository).getMapStory(location = 1, page = 1, size = 5)
-        Assert.assertNotNull(actual)
-        Assert.assertTrue(actual is Result.Success)
-        Assert.assertEquals(dummyStory.listStory.size, (actual as Result.Success).data.listStory.size)
+        assertNotNull(actual)
+        assertTrue(actual is Result.Success)
+        assertEquals(dummyStory.listStory.size, (actual as Result.Success).data.listStory.size)
     }
 
     @Test
@@ -133,8 +133,8 @@ class StoryViewModelTest {
 
         val actual = storyViewModel.getMapStories(location = 1, page = 1, size = 5).getOrAwaitValue()
         Mockito.verify(storyAppRepository).getMapStory(location = 1, page = 1, size = 5)
-        Assert.assertNotNull(actual)
-        Assert.assertTrue(actual is Result.Error)
+        assertNotNull(actual)
+        assertTrue(actual is Result.Error)
     }
 
     @Test
@@ -155,10 +155,10 @@ class StoryViewModelTest {
         )
         differ.submitData(actual)
 
-        Assert.assertNotNull(differ.snapshot())
-        Assert.assertEquals(dummyStory, differ.snapshot())
-        Assert.assertEquals(dummyStory.size, differ.snapshot().size)
-        Assert.assertEquals(dummyStory[0].id, differ.snapshot()[0]?.id)
+        assertNotNull(differ.snapshot())
+        assertEquals(dummyStory, differ.snapshot())
+        assertEquals(dummyStory.size, differ.snapshot().size)
+        assertEquals(dummyStory[0].id, differ.snapshot()[0]?.id)
     }
 
 }

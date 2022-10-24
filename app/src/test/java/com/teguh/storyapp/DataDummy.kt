@@ -65,6 +65,13 @@ object DataDummy {
         return ResponseGetStory(error, message, listStory)
     }
 
+    fun generateDummyRegisterResponseError(): ResponseRegister {
+        return ResponseRegister(
+            true,
+            "Email is already taken"
+        )
+    }
+
     fun generateDummyRegisterResponse(): ResponseRegister {
         return ResponseRegister(
             false,
@@ -82,15 +89,15 @@ object DataDummy {
     fun generateDummyRegisterRequestBody(): RequestRegister {
         return RequestRegister(
             "testing",
-            "testing@gmail.com",
+            "testing12@gmail.com",
             "testing12345"
         )
     }
 
     fun generateDummyLoginRequest(): RequestLogin {
         return RequestLogin(
-            "testing",
-            "testingpassword",
+            "tghstwn@gmail.com",
+            "tghswtn160",
         )
     }
 

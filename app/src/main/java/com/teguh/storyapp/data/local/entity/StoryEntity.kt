@@ -12,7 +12,6 @@ import kotlinx.parcelize.Parcelize
 data class StoryEntity(
 
     @PrimaryKey
-    @NonNull
     @ColumnInfo(name = "id")
     val id: String,
 

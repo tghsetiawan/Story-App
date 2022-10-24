@@ -14,16 +14,16 @@ import com.teguh.storyapp.utils.Param
 import java.lang.Exception
 
 class UserAuthRepository(
-private val apiService: ApiServiceAuth
+ val apiService: ApiServiceAuth
 ) {
     fun register(request: RequestRegister): LiveData<Result<ResponseRegister>> = liveData {
         emit(Result.Loading)
         try {
-            Log.e(Param.TAG, "Request Register : $request")
+//            Log.e(Param.TAG, "Request Register : $request")
 
             val response = apiService.register(request)
 
-            Log.e(Param.TAG, "Response Register : $response")
+//            Log.e(Param.TAG, "Response Register : $response")
 
             if (response.error == false) {
                 emit(Result.Success(response))
@@ -32,7 +32,7 @@ private val apiService: ApiServiceAuth
             }
 
         } catch (e: Exception) {
-            Log.e(Param.TAG, "Exception Register : ${e.message.toString()}")
+//            Log.e(Param.TAG, "Exception Register : ${e.message.toString()}")
             emit(Result.Error(ErrorUtils.getErrorThrowableMsg(e)))
         }
     }
@@ -40,11 +40,11 @@ private val apiService: ApiServiceAuth
     fun login(request: RequestLogin): LiveData<Result<ResponseLogin>> = liveData {
         emit(Result.Loading)
         try {
-            Log.e(Param.TAG, "Request Login : $request")
+//            Log.e(Param.TAG, "Request Login : $request")
 
             val response = apiService.login(request)
 
-            Log.e(Param.TAG, "Response Login : $response")
+//            Log.e(Param.TAG, "Response Login : $response")
 
             if (response.error == false) {
                 emit(Result.Success(response))
@@ -53,7 +53,7 @@ private val apiService: ApiServiceAuth
             }
 
         } catch (e: Exception) {
-            Log.e(Param.TAG, "Exception Login : ${e.message.toString()}")
+//            Log.e(Param.TAG, "Exception Login : ${e.message.toString()}")
             emit(Result.Error(ErrorUtils.getErrorThrowableMsg(e)))
         }
     }
